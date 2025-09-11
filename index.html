@@ -2990,11 +2990,33 @@
             });
         }
 
-        optimizePerformance();
+               optimizePerformance();
 
         // Final success message
         console.log('✅ Almost Grown website fully loaded and optimized!');
+
+        // ================================
+        // Script do formulário de sugestões
+        // ================================
+        const scriptURL = "https://script.google.com/macros/s/AKfycbwq5PTpwi2xuZ9W1rFjw_Prnj6McEp0vFl1KV0TodMxX7s4_EntjRu4eCOf1c_g9Elo/exec";
+        const form = document.getElementById("suggestionForm");
+        const successMessage = document.getElementById("suggestionSuccess");
+
+        form.addEventListener("submit", e => {
+          e.preventDefault();
+
+          fetch(scriptURL, { method: "POST", body: new FormData(form)})
+            .then(response => {
+              successMessage.style.display = "block"; // mostra msg de sucesso
+              form.reset(); // limpa os campos
+              setTimeout(() => {
+                successMessage.style.display = "none"; // esconde depois de 5s
+              }, 5000);
+            })
+            .catch(error => {
+              alert("❌ Erro ao enviar: " + error.message);
+            });
+        });
     </script>
 </body>
 </html>
-
